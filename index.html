@@ -6,78 +6,92 @@
     <title>Rock - Paper - Scissors</title>
 </head>
 <body>
+    <div class="container">
+        <button> Rock </button>
+        <button> Paper </button>
+        <button> Scissors </button>
+    </div>
+    <div class="result">
+        <p id="score"></p>
+        <p id="winner"></p>
+    </div>
+
     <script>
 
         // computer randomly select 3 Option
         // Create function for to decide who win with 2 parameter
         // Create function to receive input and loop 5 play round and give score
+        const buttons = document.querySelectorAll('button');
+    
+        buttons.forEach(button => button.addEventListener('click', playRound));
+        let playerSelection;
 
         const Option = ['Rock' , 'Paper', 'Scissors'];
-
         function getComputerChoice(){
             return result = Option[Math.floor(Math.random()* Option.length)];
 
         }
-        let ComputerSelection = getComputerChoice();
-        
-        function playRound(ComputerSelection, playerSelection){
-            let result;   
+
+        function compare (ComputerSelection, playerSelection) {
+            let result;
             if (ComputerSelection === playerSelection) {
-                result = "Tie Round";
+                result = "Tie round";
             }
             else if (ComputerSelection === "Rock" && playerSelection === "Paper") {
-                result = "You win"
+                result = "You win";
                 
             }
             else if (ComputerSelection === "Rock" && playerSelection === "Scissors") {
-                result = "You lose"
+                result = "You lose";
                 
             }
             else if (ComputerSelection === "Paper" && playerSelection === "Rock") {
-                result = "You lose"
+                result = "You lose";
                 
             }
             else if (ComputerSelection === "Paper" && playerSelection === "Scissors") {
-                result = "You win"
+                result = "You win";
                 
             }
             else if (ComputerSelection === "Scissors" && playerSelection === "Paper") {
-                result = "You lose"
+                result = "You lose";
                 
             }
             else if (ComputerSelection === "Scissors" && playerSelection === "Rock") {
-                result = "You win"
+                result = "You win";
             }
             return result;
         }
         
-        function game() {
-            let result;
-            let finalresult;
-            let playerscore = 0;
-            let computerscore = 0;
-            for (let i = 1; i <= 5; i++) {
-                ComputerSelection = getComputerChoice();    
-                result = playRound(ComputerSelection , playerSelection);
-                if (result == "You win") {
-                    playerscore += 1
-                }
-                else if (result == "You lose") {
-                    computerscore += 1
-                }
-            }   
-            if (playerscore > computerscore) {
-                finalresult = "Congrat ! You win"
-            }
-            else {
-                finalresult = "Try again"
-            }
-            return finalresult;
+        const winner = document.getElementById('winner');
+        const score = document.getElementById('score');
+        let human = 0;
+        let bot = 0;
+
+        function playRound(ComputerSelection, playerSelection){  
+            playerSelection = this.textContent;
+            playerSelection = playerSelection.replace(/ /g, '');
+            ComputerSelection = getComputerChoice();
+            let result = compare(ComputerSelection, playerSelection);
+            if (result === "You win" ? human += 1 : bot +=1 );
+            score.innerHTML = `${human} - ${bot}`;
+            if(human == 5) {
+                return  winner.innerHTML = "You win"
+            } 
+            else if (bot == 5) { 
+                return winner.innerHTML = "You lose"}; 
         }
 
-        const playerSelection = "Rock";
-        console.log(game());
+
         
+
+        
+        
+        // remove logic of playing five round
+        // create 3 button repersent 3 option Rock - Paper - Scisser
+        // run playRound function everytime button clicked
+        // display result with a div 
+        // display score, winner when someone reach 5p
 
     </script>
 </body>
